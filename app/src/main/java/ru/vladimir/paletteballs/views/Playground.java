@@ -1,51 +1,72 @@
 package ru.vladimir.paletteballs.views;
 
+
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.Random;
+import ru.vladimir.paletteballs.ball.BallsSet;
 
-public class Playground extends SurfaceView {
-    Path path;
+public class Playground extends SurfaceView implements SurfaceHolder.Callback {
 
-    Thread thread = null;
-    SurfaceHolder surfaceHolder;
-    volatile boolean running = false;
+    SurfaceHolder holder;
+    DrawThread drawThread;
+    private int width;
+    private int height;
 
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    Random random;
+    class DrawThread extends Thread {
+        private BallsSet ballsSet;
+        private float deltaX = 5f;
+        private float deltaY = 6f;
+
+        public DrawThread() {
+            ballsSet = new BallsSet(2, width, height);
+        }
+
+        private void draw() {
+
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                Canvas canvas = holder.lockCanvas();
+                if (canvas == null) {
+                    continue;
+                }
+
+            }
+        }
+    }
 
     public Playground(Context context) {
         super(context);
-        surfaceHolder = getHolder();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(3);
-        paint.setColor(Color.WHITE);
+        getHolder().addCallback(this);
+        drawThread = new DrawThread();
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            path = new Path();
-            path.moveTo(event.getX(), event.getY());
-        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            path.lineTo(event.getX(), event.getY());
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            path.lineTo(event.getX(), event.getY());
-        }
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+       this.width = width;
+       this.height = height;
+    }
 
-        if (path != null) {
-            Canvas canvas = surfaceHolder.lockCanvas();
-            canvas.drawPath(path, paint);
-            surfaceHolder.unlockCanvasAndPost(canvas);
-        }
-        return true;
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public SurfaceHolder getHolder() {
+        return super.getHolder();
     }
 }
+
+

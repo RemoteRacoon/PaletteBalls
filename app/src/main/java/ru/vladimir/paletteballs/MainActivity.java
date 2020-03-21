@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import ru.vladimir.paletteballs.views.Playground;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,4 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(new Playground(this));
     }
+
 }
+
