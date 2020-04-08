@@ -1,4 +1,4 @@
-package ru.vladimir.paletteballs.ball;
+package ru.vladimir.paletteballs.shapes;
 
 
 import android.graphics.Canvas;
