@@ -25,25 +25,32 @@ public class Palette {
         };
     }
 
+
     /**
-     * Takes the next color from the palette.
-     * @return color.
+     * Get current color in the palette.
+     * @return Current color.
      */
-    public int getNextColor() {
-        if (currentColor == this.colors.length) {
-            this.currentColor = 0;
-        }
-        return this.colors[currentColor++];
+    public int getCurrentColor() {
+        return this.colors[this.currentColor];
     }
+
 
     /**
      *
      * @param numberOfColor - Number of color in the palette.
      */
     public void setCurrentColor(int numberOfColor) {
-//        if (numberOfColor >= colors.length) {
-//            numberOfColor %= colors.length;
-//        }
         this.currentColor = numberOfColor;
+    }
+
+
+    /**
+     * Set next color in the palette.
+     */
+    public void setNextColor() {
+        this.currentColor++;
+        if (this.currentColor >= this.colors.length) {
+            this.currentColor = 0;
+        }
     }
 }
